@@ -342,7 +342,7 @@ a {
     .service-card {
       grid-column: span 12;
       background: linear-gradient(180deg, color-mix(in oklab, #fff 92%, transparent), #fff);
-      border: 1px solid rgba(0,0,0,.06);
+      border: 1.2px solid var(--purple);
       border-radius: var(--radius);
       padding: 18px;
       transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease;
@@ -357,12 +357,32 @@ a {
   background: transparent;
   }
 
-
     .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,.10);
-  border-color: #ffffff; /* pure white border */
-}
+      transform: translateY(-4px);
+      box-shadow: 
+        0 0 6px #ff4fc6,
+        0 0 12px #ff4fc6,
+        0 0 18px #ff4fc6,
+        0 0 24px rgba(255, 79, 198, 0.8);
+      background: linear-gradient(
+        180deg,
+     #1a1a1a 0%, 
+      #2a2a2a 100%
+      );
+      color: white;
+      border: 1px solid #ff4fc6;
+  }
+
+  .service-card:hover .service-title,
+  .service-card:hover .statment {
+    color: #ff4fc6;
+    text-shadow: 
+      0 0 4px #ff4fc6,
+      0 0 8px #ff4fc6,
+      0 0 12px #ff4fc6,
+      0 0 16px rgba(255, 79, 198, 0.8);
+  }
+
 
 #services h2 {
   max-width: 900px;    /* match service cards width */
@@ -469,7 +489,6 @@ a {
 </div>
 
 
-  <!-- 🔹 New Case Studies link -->
   
 
     </nav>
@@ -1030,19 +1049,14 @@ environment and beyond
         to authentic and impactful storytelling.
       </p>
 
-  <div style="display:grid; gap:30px; margin-top:20px;">
+  <div style="display:grid; gap:30px; margin-top:20px; ">
     <!-- Example event card -->
     <article class="service-card">
-      <h3 class="service-title">Event Name 1</h3>
-      <p class="service-desc">Brief description of Event 1, location, date, and highlight.</p>
+      <h3 class="service-title">Pink Friday</h3>
+      <p class="service-desc">Join Pink Friday PCOS Awareness Gathering!</p>, location, date, and highlight.</p>
       <img src="images/event1.jpg" alt="Event 1" style="width:100%; border-radius:18px; margin-top:12px;">
     </article>
 
-    <article class="service-card">
-      <h3 class="service-title">Event Name 2</h3>
-      <p class="service-desc">Brief description of Event 2, location, date, and highlight.</p>
-      <img src="images/event2.jpg" alt="Event 2" style="width:100%; border-radius:18px; margin-top:12px;">
-    </article>
 
     <!-- Add more event cards as needed -->
   </div>
