@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WEMAS Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #80148f;           
+      --green: #a1f656;         
+      --light-brown: #ffffff;    
+      --white: #ffffff;
+      --offwhite: #fbfbfb;
+      --black: #0b0b0b;
+      --ink: #111111;
+      --muted: #595959;
+      --ring: (58, 63, 206, 0.596);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --radius-lg: 28px;
+      --maxw: 1200px;
+      
+  .zoom-img:hover {
+  transform: scale(1.05);
+}
+
+.typing {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 14px;
+}
+
+.typing span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background: #333;
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing span:nth-child(1) { animation-delay: 0s; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+
+.chat-cta {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: purple;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 4px; /* small rounded corners, rectangle look */
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+.chat-cta:hover {
+  background: purple;
+}
+
+
+#chatbot-window {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#chatbot-window.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+
+
+#chatbot-window {
+  position: fixed;
+  bottom: 90px; /* was 70px */
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px 10px 20px 20px; /* TL TR BR BL */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+
+.hidden { display: none; }
+
+#chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* space between messages */
+}
+
+.user-msg {
+  align-self: flex-end;
+  background: purple;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px 15px 0 15px; /* round corners like speech bubble */
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.bot-msg {
+  align-self: flex-start;
+  background: #f1f1f1;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 15px 15px 15px 0; /* round corners like speech bubble */
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+#chatbot-input {
+  border: none;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  outline: none;
+  font-size: 14px;
+  border-radius: 0 0 10px 10px;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+/* For mobile: zoom on tap */
+.zoom-img:active {
+  transform: scale(1.05);
+}
+
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 2px var(--purple);
+}
+
+
+
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--ink);
+      background: radial-gradient(1200px 800px at 10% -20%, var(--light-brown), transparent 60%),
+                  radial-gradient(1000px 600px at 110% 10%, rgba(0,0,0,0.05), transparent 60%),
+                  var(--offwhite);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(180%) blur(14px);
+      background: color-mix(in oklab, white 80%, transparent);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .nav {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      gap: 12px;
+    }
+
+    .brand {
+      display: grid;
+      grid-template-rows: auto auto;
+      align-items: center;
+      line-height: 1;
+      text-decoration: none;
+      min-width: 120px; /* keep logo width consistent */
+      flex-shrink: 0; /* smooth any movement */
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(20px, 2.1vw, 26px);
+      font-weight: 800;
+      letter-spacing: .6px;
+      color: var(--purple);
+    }
+    .brand h4 {
+      margin: 0;
+      margin-top: 2px;
+      font-size: clamp(11px, 1.2vw, 13px);
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: var(--purple);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--purple);      /* purple border */
+  background: var(--purple);            /* purple fill */
+  color: #fff;                           /* white text */
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .16s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(0,0,0,.10); }
+.btn:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--purple);     /* purple border */
+  color: var(--purple);                 /* purple text */
+  box-shadow: none;
+}
+
+
+    .hamburger { display: none; }
+
+    /* Sections */
+    main { max-width: var(--maxw); margin: 0 auto; padding: 24px 16px 80px; }
+
+    section {
+      display: none;
+      animation: fade .45s ease both;
+    }
+    section.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px) }
+      to   { opacity: 1; transform: translateY(0) }
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(40px, 8vw, 120px) 0;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: clamp(24px, 6vw, 60px);
+      align-items: center;
+    }
+    .hero h2 {
+      font-size: clamp(28px, 5vw, 64px);
+      line-height: 1.05;
+      margin: 0 0 16px;
+      letter-spacing: -0.8px;
+    }
+    .tagline {
+      font-size: clamp(16px, 1.8vw, 18px);
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .glass {
+      background: linear-gradient(180deg, color-mix(in oklab, white 86%, transparent), color-mix(in oklab, white 60%, transparent));
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius-lg);
+      padding: clamp(18px, 3vw, 28px);
+      box-shadow: var(--shadow);
+    }
+
+    .statment {
+      font-weight: 800;
+      font-size: clamp(18px, 2.6vw, 28px);
+      line-height: 1.2;
+      color: var(--black);
+    }
+    
+    .underline {
+  text-decoration: #ffffff;
+   }
+
+
+    /* Services */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: clamp(14px, 2vw, 20px);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .service-card {
+      grid-column: span 12;
+      background: linear-gradient(180deg, color-mix(in oklab, #fff 92%, transparent), #fff);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      padding: 18px;
+      transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease;
+      width: 100%;
+      max-width: 1000px; /* adjust as you like */
+      margin: 0 auto
+    }
+    
+
+    .service-card img {
+  mix-blend-mode: multiply; /* or darken */
+  background: transparent;
+  }
+
+
+    .service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.10);
+  border-color: #ffffff; /* pure white border */
+}
+
+#services h2 {
+  max-width: 900px;    /* match service cards width */
+  margin: 0 auto 30px; /* center block + spacing below */
+  text-align: center;  /* center the text */
+}
+
+
+
+    .service-icon {
+      width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 14px;
+      background: #ccc;
+      box-shadow: none;
+    }
+    .service-title { margin: 0 0 6px; font-size: 18px; font-weight: 800; letter-spacing: .2px; }
+    .service-desc { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+      padding: 0;
+      margin: 0;
+    }
+    .about > div {
+  padding: clamp(24px, 6vw, 60px); /* inner padding instead of outer */
+    }
+
+    .about .quote {
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 700;
+      line-height: 1.35;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius-lg);
+      padding: clamp(16px, 3vw, 28px);
+      box-shadow: var(--shadow);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--purple);
+      background: linear-gradient(180deg, #fff, color-mix(in oklab, #fff 70%, var(--light-brown)));
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .3px;
+      width: fit-content;
+    }
+    
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(0,0,0,.06);
+      padding: 30px 16px 60px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
+    }
+    .footer-inner { max-width: var(--maxw); margin: 0 auto; display: grid; gap: 8px; }
+    .copyright { color: var(--muted); font-size: 14px; }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero, .about { grid-template-columns: 1fr; }
+      .service-card { grid-column: span 12; }
+    }
+
+    @media (max-width: 720px) {
+      .hamburger { display: inline-flex; }
+      .nav-actions { position: fixed; top: 64px; right: 12px; left: 12px; display: none; flex-direction: column; padding: 12px; border-radius: var(--radius); background: #fff; border: 1px solid rgba(0,0,0,.08); box-shadow: var(--shadow); }
+      .nav-actions.open { display: flex; }
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    /* Focus styles */
+    :where(a, button).focus-visible,
+    :where(a, button):focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="#" data-nav="home" aria-label="Go to Home">
+        <h1>WEMAS</h1>
+        <h4>AGENCY</h4>
+      </a>
+
+      <button class="btn hamburger" id="menuBtn" aria-expanded="false" aria-controls="menu">
+        ☰ Menu
+      </button>
+
+  <div class="nav-actions" id="menu" role="group" aria-label="Primary">
+  <button class="btn btn-ghost" data-nav="home">Home</button>
+  <button class="btn btn-ghost" data-nav="about">About&nbsp;Us</button>
+  <button class="btn btn-ghost" data-nav="services">Services</button>
+  <button class="btn btn-ghost" data-nav="contact">Contact&nbsp;Us</button>
+  <button class="btn btn-ghost" data-nav="events">Our&nbsp;Events</button>
+</div>
+
+
+  <!-- 🔹 New Case Studies link -->
+  <a href="case-studies.html" class="btn btn-ghost">Case Studies</a>
+
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+<!-- Our Events Section -->
+<main>
+    <!-- Home / Welcome Section -->
+    <section id="home" class="active" aria-labelledby="home-title">
+      <div class="hero">
+        <div>
+          <div class="badge" style = "margin-bottom: 60px;">WISDOM • EMPATHY • MASTERY • AUTHENTICITY • SUSTAINABILITY</div>
+
+          
+          <h2 id="home-title">Crafting influence. Driving growth.</h2>
+          <p class="tagline">At WEMAS, we do not merely oversee your communications; we enhance
+your influence, guaranteeing that your brand distinguishes itself, establishes
+genuine connections, and flourishes within the ever-evolving East African
+environment and beyond.</p>
+<div class="cta-row"> <button class="btn" data-nav="services" aria-label="Explore our services">Explore Services</button> <button class="btn btn-ghost" data-nav="about" aria-label="Learn about us">Learn About Us</button> </div> </div>
+
+<div class="panel" style="text-align:center; padding:20px;">
+  <h2 style="font-size:2rem; font-weight:700; margin-bottom:10px;">
+    <span id="animated-text"></span>
+  </h2>
+</div>
+
+
+<script>
+  const phrases = [
+    "Helping Different Businesses Reach Their Goals.",
+    "Crafting premium communication.",
+    "Telling stories that stick.",
+    "Driving influence in East Africa.",
+    "Turning strategy into impact."
+  ];
+
+  let i = 0;
+  let j = 0;
+  let currentPhrase = [];
+  let isDeleting = false;
+  let isEnd = false;
+
+  function loop() {
+    isEnd = false;
+    document.getElementById("animated-text").innerHTML = currentPhrase.join("");
+
+    if (i < phrases.length) {
+      if (!isDeleting && j <= phrases[i].length) {
+        currentPhrase.push(phrases[i][j]);
+        j++;
+        document.getElementById("animated-text").innerHTML = currentPhrase.join("");
+      }
+
+      if (isDeleting && j <= phrases[i].length) {
+        currentPhrase.pop(phrases[i][j]);
+        j--;
+        document.getElementById("animated-text").innerHTML = currentPhrase.join("");
+      }
+
+      if (j == phrases[i].length) {
+        isEnd = true;
+        isDeleting = true;
+        setTimeout(loop, 1000); // pause before deleting
+        return;
+      }
+
+      if (isDeleting && j === 0) {
+        currentPhrase = [];
+        isDeleting = false;
+        i++;
+        if (i === phrases.length) {
+          i = 0;
+        }
+      }
+    }
+    const speedUp = Math.random() * (80 - 50) + 50;
+    const normalSpeed = Math.random() * (200 - 100) + 100;
+    const time = isEnd ? 2000 : isDeleting ? speedUp : normalSpeed;
+    setTimeout(loop, time);
+  }
+
+  loop();
+</script>
+
+<div style="margin:40px 0; text-align:center;">
+  <a href="case-studies.html" style="display:inline-block; overflow:hidden; border-radius:18px;">
+    <img src="images/FuckThis.png" 
+         alt="WEMAS Agency Visual - Case Studies" 
+         class="zoom-img"
+         style="max-width:100%; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.08); cursor:pointer; transition: transform .35s ease;">
+  </a>
+</div>
+
+
+
+<div style="margin-top:80px;">
+  <h2 style="color: var(--purple); font-weight:800; margin-bottom:24px; font-size:clamp(22px, 3vw, 32px);">
+    Connection in the Digital Age through the WEMAS Agency Model.
+  </h2>
+
+  <p style="margin-bottom:16px;">
+    We at WEMAS Agency are built for modern times. The outdated communication guidelines are hardly effective. People are in charge, and they are utilizing technology to block out the noise and discover new brands. We know this because we experience it ourselves. Our model is made to help you lead in this rapidly changing, technologically advanced environment, not just stay up.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    <span style="color: var(--purple); font-weight:700;">Clients at the Heart:</span> We begin with an obvious question: What does your audience demand? We employ data and insights to develop tactics that establish real connections with your audience rather than only talking to them. Our purpose is to achieve your goals.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    <span style="color: var(--purple); font-weight:700;">Social & Seamless:</span> The traditional agency silos have been abandoned. Like an organized social network, our staff communicates easily. Your project is managed by a single individual who serves as your only point of contact and accountability, but a group of digital natives are working behind them to make things happen.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    <span style="color: var(--purple); font-weight:700;">Frictionless by Design:</span> All internal challenges have been eliminated, allowing us to proceed at the internet's pace. Our method is efficient, safe, and designed for a world that is impatient.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    <span style="color: var(--purple); font-weight:700;">Modular & Future-Proof:</span> We believe in a flexible approach. Our unique model allows us to plug and play specific digital experts as you need them—from social media strategists to data analysts. This means we're not tied to one way of thinking. We adapt to the latest tech and trends to keep your brand relevant now and in the future.
+  </p>
+
+  <p>
+    <span style="color: var(--purple); font-weight:700;">United & Tech-Driven:</span> We are a team of creators, technologists, and communicators. By fusing these skills, we deliver transformative digital campaigns that build authentic communities and drive real results. We don't just use technology; we use it to build bridges between your brand and the people who matter most.
+  </p>
+</div>
+
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="about">
+        <div>
+          <div class="badge">About WEMAS</div>
+          <p class="service-desc" style="font-size: 16px;">
+            <p>
+<h3 style="color:#80148f; font-size:22px; font-weight:700;">Vision:</h3>
+
+<p>
+  To be the leading communications partner for organizations seeking impactful, 
+  innovative, and results-driven comms solutions across East Africa.
+</p>
+
+<h3 style="color:#80148f; font-size:22px; font-weight:700;">Mission:</h3>
+
+<p>
+  To achieve our clients’ strategic objectives through expert communication 
+  consultancy, creative content development, robust PR, and targeted digital 
+  engagement fostering meaningful connections with their audiences.
+</p>
+<p>
+  At WEMA'S, we do not merely oversee your communications; we enhance
+your influence, guaranteeing that your brand distinguishes itself, establishes
+genuine connections, and flourishes within the ever-evolving East African
+environment and beyond
+</p>
+
+          </p>
+          <div class="cta-row" style="margin-top: 14px;">
+            <button class="btn" data-nav="services">See What We Do</button>
+            <button class="btn btn-ghost" data-nav="home">Back Home</button>
+          </div>
+        </div>
+        <div class="quote">
+          "Clarity is kind. Strategy is power. Culture is context. We bring all three together so your message travels farther and lands deeper."
+        </div>
+      </div>
+
+      <!-- Founder Image -->
+  <div style="text-align:center; margin:60px 0 40px;">
+    <img src="images/nerd.png" 
+         alt="Founder of WEMAS" 
+         style="width:220px; height:280px; object-fit:cover; border-radius:70%; border:4px solid var(--purple); box-shadow:0 6px 18px rgba(0,0,0,0.12);">
+  </div>
+
+    <div style="margin-top:80px;">
+  <h2 style="color: var(--purple); font-weight:800; margin-bottom:24px; font-size:clamp(22px, 3vw, 32px);">
+    A Message from Our Founder
+  </h2>
+
+  <p style="margin-bottom:16px;">
+    Welcome to WEMAS Agency, and hello.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    When I founded WEMAS, my belief was straightforward yet impactful: sincere connections are the most important currency in today's digital world. The constant flow of content, short-term trends, and the generic stats can easily overwhelm one. We recognized the need to create something tangible and move beyond likes and shares.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    That is the main goal of WEMAS. Our digital communication agency was founded on the idea that genuine connections are the cornerstone of any successful brand. Our goal is to assist you in telling your story in a way that genuinely relates with your audience, transforming them into a community and establishing your brand as a recognized voice. We are a group of dedicated strategists, creatives, and storytellers who value the impact that a well-written message can have. We are here to link you with the individuals who are most important to your business and assist you in navigating the complexity of digital media.
+  </p>
+
+  <p style="margin-bottom:16px;">
+    We appreciate you taking the time to find out more about us. We are eager to get to know you and work with you to create something extraordinary.
+  </p>
+
+  <p style="font-weight: bold; margin-top: 24px;">
+    Sincerely,<br>
+    MUWEMA BEATA MUTESI R.
+  </p>
+</div>
+
+
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="badge">Our Services</div>
+      <h2 id="services-title" style="margin-top:8px">Built for growth, designed for trust</h2>
+
+
+<!-- Communication Strategy -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#80148f" viewBox="0 0 24 24">
+      <path d="M6.62 10.79a15.091 15.091 0 006.59 6.59l2.2-2.2a1 1 0 011.05-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.05l-2.23 2.23z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Communication Strategy</h3>
+  <p class="service-desc">Building a roadmap to deliver your message effectively.</p>
+
+  <!-- Hidden extra text -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          Your message is powerful, but only if it reaches the right people at the right time. 
+          Our communication strategy service helps you build a clear and actionable roadmap. 
+          We work with you to define your goals, understand your audience, and select the right 
+          channels to get your story heard. The result is a unified, impactful plan that turns 
+          your communication efforts into real business results.
+        </p>
+        <p>
+          Ready to create a brand that people will love? Request a quote to start your branding journey with us.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/communicationstrategy-removebg-preview.png" alt="Communication Strategy illustration" style="width:100%; border-radius:8px;" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Buttons (outside of hidden block so always visible) -->
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">
+      Learn More
+    </button>
+  </div>
+</article>
+
+
+<!-- Branding -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#80148f" viewBox="0 0 24 24">
+      <path d="M4 4h16v2H4V4zm0 4h10v2H4V8zm0 4h16v2H4v-2zm0 4h10v2H4v-2z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Branding</h3>
+  <p class="service-desc">Crafting a unique identity that resonates with your audience.</p>
+
+  <!-- Hidden expandable content -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          Your brand is more than just a logo; it's the core of who you are and what you stand for. 
+          Our branding service helps you define a unique identity that stands out and connects with 
+          your audience on a deeper level. From brand voice and visual identity to comprehensive 
+          style guides, we create a brand that is authentic, memorable, and consistent across all platforms.
+        </p>
+        <p>
+          Ready to create a brand that people will love? Request a quote to start your branding journey with us.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/branding.jpg" alt="Branding illustration" style="width:100%; border-radius:8px;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">Learn More</button>
+  </div>  
+</article>
+
+
+
+<!-- Public Relations -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#80148f" viewBox="0 0 24 24">
+      <path d="M12 2C6.477 2 2 6.029 2 10.5c0 2.816 1.615 5.31 4.125 6.951L5 22l5.438-3.02c.51.092 1.037.145 1.562.145 5.523 0 10-4.029 10-8.5S17.523 2 12 2z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Public Relations</h3>
+  <p class="service-desc">Earning media coverage and building a strong reputation.</p>
+
+  <!-- Hidden expandable content -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          In a crowded marketplace, earning trust and credibility is essential. 
+          Our public relations service focuses on getting your story told by the media that matters. 
+          We help you secure valuable earned media coverage, build relationships with journalists, 
+          and position your brand as a leader in your industry. This isn't about paying for ads; 
+          it's about building a reputation that speaks for itself.
+        </p>
+        <p>
+          Ready to get your story in the headlines? Request a quote and let's get you noticed.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/publi" alt="Public Relations illustration" style="width:100%; border-radius:8px;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">Learn More</button>
+  </div>  
+</article>
+
+
+<!-- Crisis Communication -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#80148f" viewBox="0 0 24 24">
+      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Crisis Communication</h3>
+  <p class="service-desc">Protecting your brand's image during challenging times.</p>
+
+  <!-- Hidden expandable content -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          When a crisis hits, your reputation is on the line. Our crisis communication service helps you prepare 
+          for the unexpected and respond with speed, clarity, and confidence. We work with you to develop a 
+          comprehensive plan, draft key messages, and provide media training so you can protect your brand's 
+          image and maintain public trust during challenging times.
+        </p>
+        <p>
+          Ready to protect your most valuable asset? Request a quote to start preparing your crisis 
+          communication plan.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/crisiscommunication-removebg.png" alt="Crisis Communication illustration" style="width:100%; border-radius:8px;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">Learn More</button>
+  </div>  
+</article>
+
+
+
+<!-- Monitoring & Evaluation -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#80148f" viewBox="0 0 24 24">
+      <path d="M3 17h2v-7H3v7zM7 17h2v-3H7v3zm4 0h2V7h-2v10zm4 0h2v-5h-2v5zm4 0h2V3h-2v14z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Monitoring & Evaluation</h3>
+  <p class="service-desc">Analyzing data to ensure your communication efforts are successful.</p>
+
+  <!-- Hidden expandable content -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          Your communication efforts are an investment, and you deserve to know they are paying off. 
+          Our monitoring and evaluation service uses data to measure the performance of your campaigns. 
+          We track key metrics, analyze audience sentiment, and provide clear reports so you can understand 
+          what's working and make data-driven decisions to optimize your strategy and maximize your return on investment.
+        </p>
+        <p>
+          Ready to turn your data into a clear roadmap for success? Request a quote to learn how we can 
+          measure what truly matters.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/monitoring___evaluation-removebg-preview.png" alt="Monitoring & Evaluation illustration" style="width:100%; border-radius:8px;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">Learn More</button>
+  </div>  
+</article>
+
+
+<!-- Content Marketing -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#80148f">
+      <path d="M1 21h4V9H1v12zm22-10c0-1.1-.9-2-2-2h-7.3l.8-4c.2-1-.6-2-1.6-2h-1L7 9v12h11c.8 0 1.5-.5 1.8-1.2l3-7c.1-.2.2-.5.2-.8v-1z"/>
+    </svg>
+  </div>
+
+  <h3 class="service-title">Content Marketing</h3>
+  <p class="service-desc">
+    Creating engaging content that attracts and retains customers.
+  </p>
+
+  <!-- Hidden expandable content -->
+  <div class="service-more" style="display:none; margin-top:10px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;">
+
+      <!-- Left side: text -->
+      <div style="flex: 1;">
+        <p>
+          Great content doesn't just fill a space—it solves problems, builds relationships, and drives action. 
+          Our content marketing service focuses on creating valuable and relevant content that attracts and retains 
+          a clearly defined audience. From engaging blog posts and compelling videos to insightful whitepapers, we build 
+          a content engine that positions you as a trusted expert and fuels your business growth.
+        </p>
+        <p>
+          Ready to build a content engine that works for you? Request a quote and let's start creating content that converts.
+        </p>
+      </div>
+
+      <!-- Right side: image -->
+      <div style="flex: 1; max-width: 400px;">
+        <img src="images/contentmarketing-removebg-preview.png" alt="Content Marketing illustration" style="width:100%; border-radius:8px;" />
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta-row" style="margin-top:10px; display:flex; gap:10px;">
+    <button class="btn quota-btn" data-nav="contact" aria-label="Go to Contact Section">
+      Request a Quote
+    </button>
+    <button class="btn btn-ghost learn-more-btn">Learn More</button>
+  </div>  
+</article>
+
+
+
+<!-- Ready to Start -->
+<article class="service-card">
+  <div class="service-icon" aria-hidden="true" style="background:none;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#80148f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Arrow line -->
+      <polyline points="3,18 7,12 12,16 17,8 21,12"/>
+      <!-- Arrow tip -->
+      <polygon points="21,12 21,6 15,6" fill="80148f"/>
+    </svg>
+  </div>
+  <h3 class="service-title">Ready to Start?</h3>
+  <p class="service-desc">We tailor a package across services that fit your goals and budget.</p>
+  <div class="cta-row" style="margin-top:10px;">
+    <button class="btn" data-nav="home">Return Home</button>
+    <button class="btn btn-ghost" data-nav="contact" aria-label="Go to Contact Section">Get In Touch</button>
+  </div>
+</article>
+ </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="panel" style="max-width:600px; margin:0 auto; text-align:center;">
+    <h1 style="color:var(--purple); font-size:2.2rem; font-weight:800; margin-bottom:20px;">WEMAS</h1>
+    <form class="contact-form" style="display:flex; flex-direction:column; gap:16px; text-align:left;"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          action="/thanks.html"> <!-- 👈 redirect to thank you page --> 
+      <input type="hidden" name="form-name" value="contact"> <!-- required for Netlify -->
+      <label>
+        <span style="font-weight:600;">Enter Email</span>
+        <input type="email" name="email" placeholder="you@example.com" required>
+      </label>
+      <label>
+        <span style="font-weight:600;">Your Message</span>
+        <textarea name="message" rows="5" placeholder="Type your message here..." required></textarea>
+      </label>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Our Events Section -->
+<section id="events" aria-labelledby="events-title">
+  <div class="badge">Our Events</div>
+  <h2 id="events-title" style="margin-top:8px">Experience WEMAS in Action</h2>
+
+      <h2 id="events-title" style="color: var(--purple); font-weight:800; margin-bottom:24px; font-size:clamp(22px, 3vw, 32px);">
+        WEMAS Creative Summit
+      </h2>
+
+      <p style="margin-bottom:16px;">
+        Every year, WEMAS brings together the brightest creatives, strategists, and innovators across East Africa 
+        to connect, collaborate, and shape the future of communication. The WEMAS Creative Summit is not just an 
+        event—it’s a platform for meaningful exchange, networking, and showcasing creativity at its finest.
+      </p>
+
+      <p style="margin-bottom:16px;">
+        Through keynote sessions, interactive panels, and hands-on workshops, our summit highlights the latest 
+        trends in branding, digital strategy, public relations, and content creation. We believe in creating 
+        opportunities where new ideas can thrive and where collaborations can be born.
+      </p>
+
+      <p style="margin-bottom:16px;">
+        Whether you are a business leader, an aspiring creative, or a communications professional, the summit 
+        offers a unique space to gain insights, share experiences, and be part of a growing community committed 
+        to authentic and impactful storytelling.
+      </p>
+
+  <div style="display:grid; gap:30px; margin-top:20px;">
+    <!-- Example event card -->
+    <article class="service-card">
+      <h3 class="service-title">Event Name 1</h3>
+      <p class="service-desc">Brief description of Event 1, location, date, and highlight.</p>
+      <img src="images/event1.jpg" alt="Event 1" style="width:100%; border-radius:18px; margin-top:12px;">
+    </article>
+
+    <article class="service-card">
+      <h3 class="service-title">Event Name 2</h3>
+      <p class="service-desc">Brief description of Event 2, location, date, and highlight.</p>
+      <img src="images/event2.jpg" alt="Event 2" style="width:100%; border-radius:18px; margin-top:12px;">
+    </article>
+
+    <!-- Add more event cards as needed -->
+  </div>
+
+  <div class="cta-row" style="margin-top:24px;">
+    <button class="btn" data-nav="home">Back Home</button>
+    <button class="btn btn-ghost" data-nav="contact">Get In Touch</button>
+  </div>
+</section>
+
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="badge">WEMAS • AGENCY</div>
+      <small class="copyright">© <span id="year"></span> WEMAS Agency. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Simple SPA-style navigation between sections
+  const sections = {
+   home: document.getElementById('home'),
+   about: document.getElementById('about'),
+   services: document.getElementById('services'),
+   contact: document.getElementById('contact'),
+   events: document.getElementById('events') // ✅ add this
+};
+
+
+    function activate(section) {
+      Object.values(sections).forEach(s => s.classList.remove('active'));
+      (sections[section] || sections.home).classList.add('active');
+      // Close mobile menu after navigation
+      menu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      // Scroll to top for clean view
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-nav]').forEach(el => {
+      el.addEventListener('click', e => {
+        const dest = el.getAttribute('data-nav');
+        if (dest) {
+          e.preventDefault();
+          activate(dest);
+        }
+      });
+      // keyboard access for cards
+      if (el.getAttribute('role') === 'button') {
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activate(el.getAttribute('data-nav'));
+          }
+        });
+      }
+    });
+
+    // Mobile menu toggler
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+<!-- Chatbot Button -->
+<div id="chatbot-button" class="chat-cta">
+  Have a question? Click here
+</div>
+
+
+<!-- Chatbot Window -->
+<div id="chatbot-window" class="hidden">
+  <div id="chatbot-messages"></div>
+  <input id="chatbot-input" type="text" placeholder="Ask me something..." />
+</div>
+
+<!-- Link JS file -->
+<script src="index.js"></script>
+
+</html>
+
+
+<!-- Learn More toggle script -->
+<script>
+  document.querySelectorAll('.learn-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.service-card');
+      const more = card.querySelector('.service-more');
+
+      if (more.style.display === "none" || more.style.display === "") {
+        more.style.display = "block";
+        btn.textContent = "Show Less";
+      } else {
+        more.style.display = "none";
+        btn.textContent = "Learn More";
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+
