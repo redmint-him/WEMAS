@@ -342,20 +342,15 @@ a {
     .service-card {
       grid-column: span 12;
       background: linear-gradient(180deg, color-mix(in oklab, #fff 92%, transparent), #fff);
-      border: 1.2px solid var(--purple);
+      border: 1px solid var(--purple);
       border-radius: var(--radius);
       padding: 18px;
       transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease;
-      width: 100%;
+      width: 80%;
       max-width: 1000px; /* adjust as you like */
       margin: 0 auto
     }
     
-
-    .service-card img {
-  mix-blend-mode: multiply; /* or darken */
-  background: transparent;
-  }
 
     .service-card:hover {
       transform: translateY(-4px);
@@ -364,11 +359,7 @@ a {
         0 0 12px #ff4fc6,
         0 0 18px #ff4fc6,
         0 0 24px rgba(255, 79, 198, 0.8);
-      background: linear-gradient(
-        180deg,
-     #1a1a1a 0%, 
-      #2a2a2a 100%
-      );
+      background-image: url('/images/woman.png');
       color: white;
       border: 1px solid #ff4fc6;
   }
@@ -377,10 +368,10 @@ a {
   .service-card:hover .statment {
     color: #ff4fc6;
     text-shadow: 
-      0 0 4px #ff4fc6,
-      0 0 8px #ff4fc6,
-      0 0 12px #ff4fc6,
-      0 0 16px rgba(255, 79, 198, 0.8);
+      0 0 3px #ff4fc6,
+      0 0 7px #ff4fc6,
+      0 0 11px #ff4fc6,
+      0 0 15px rgba(255, 79, 198, 0.8);
   }
 
 
@@ -577,7 +568,7 @@ environment and beyond.</p>
 
 <div style="margin:40px 0; text-align:center;">
   <a href="case-studies.html" style="display:inline-block; overflow:hidden; border-radius:18px;">
-    <img src="images/FuckThis.png" 
+    <img src="/images/FuckThis.png" 
          alt="WEMAS Agency Visual - Case Studies" 
          class="zoom-img"
          style="max-width:100%; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.08); cursor:pointer; transition: transform .35s ease;">
@@ -660,7 +651,7 @@ environment and beyond
 
       <!-- Founder Image -->
   <div style="text-align:center; margin:60px 0 40px;">
-    <img src="images/nerd.png" 
+    <img src="/images/nerd.png" 
          alt="Founder of WEMAS" 
          style="width:220px; height:280px; object-fit:cover; border-radius:70%; border:4px solid var(--purple); box-shadow:0 6px 18px rgba(0,0,0,0.12);">
   </div>
@@ -732,7 +723,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/communicationstrategy-removebg-preview.png" alt="Communication Strategy illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/communicationstrategy-removebg-preview.png" alt="Communication Strategy illustration" style="width:100%; border-radius:8px;" />
       </div>
 
     </div>
@@ -780,7 +771,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/branding.jpg" alt="Branding illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/branding.jpg" alt="Branding illustration" style="width:100%; border-radius:8px;" />
       </div>
     </div>
   </div>
@@ -826,7 +817,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/publi" alt="Public Relations illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/publi" alt="Public Relations illustration" style="width:100%; border-radius:8px;" />
       </div>
     </div>
   </div>
@@ -871,7 +862,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/crisiscommunication-removebg.png" alt="Crisis Communication illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/crisiscommunication-removebg.png" alt="Crisis Communication illustration" style="width:100%; border-radius:8px;" />
       </div>
     </div>
   </div>
@@ -917,7 +908,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/monitoring___evaluation-removebg-preview.png" alt="Monitoring & Evaluation illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/monitoring___evaluation-removebg-preview.png" alt="Monitoring & Evaluation illustration" style="width:100%; border-radius:8px;" />
       </div>
     </div>
   </div>
@@ -963,7 +954,7 @@ environment and beyond
 
       <!-- Right side: image -->
       <div style="flex: 1; max-width: 400px;">
-        <img src="images/contentmarketing-removebg-preview.png" alt="Content Marketing illustration" style="width:100%; border-radius:8px;" />
+        <img src="/images/contentmarketing-removebg-preview.png" alt="Content Marketing illustration" style="width:100%; border-radius:8px;" />
       </div>
 
     </div>
@@ -1007,7 +998,7 @@ environment and beyond
           name="contact"
           method="POST"
           data-netlify="true"
-          action="/thanks.html"> <!-- 👈 redirect to thank you page --> 
+          action="/pages/thanks.html"> <!-- 👈 redirect to thank you page --> 
       <input type="hidden" name="form-name" value="contact"> <!-- required for Netlify -->
       <label>
         <span style="font-weight:600;">Enter Email</span>
@@ -1054,7 +1045,7 @@ environment and beyond
     <article class="service-card">
       <h3 class="service-title">Pink Friday</h3>
       <p class="service-desc">Join Pink Friday PCOS Awareness Gathering!</p>, location, date, and highlight.</p>
-      <img src="images/event1.jpg" alt="Event 1" style="width:100%; border-radius:18px; margin-top:12px;">
+      <!--<img src="/images/IMG-20251002-WA0000.jpg" alt="Event 1" style="width:50%; border-radius:9px; margin-top:6px;"> -->
     </article>
 
 
@@ -1142,7 +1133,7 @@ environment and beyond
 </div>
 
 <!-- Link JS file -->
-<script src="index.js"></script>
+<script src="/scripts/index.js"></script>
 
 </html>
 
