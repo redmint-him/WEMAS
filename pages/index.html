@@ -348,7 +348,9 @@ a {
       transition: transform .16s ease, box-shadow .2s ease, border-color .2s ease;
       width: 80%;
       max-width: 1000px; /* adjust as you like */
-      margin: 0 auto
+      margin: 0 auto;
+      background-image: url('/images/woman.png');
+      border: 1px solid #ff4fc6;
     }
     
 
@@ -359,13 +361,13 @@ a {
         0 0 12px #ff4fc6,
         0 0 18px #ff4fc6,
         0 0 24px rgba(255, 79, 198, 0.8);
-      background-image: url('/images/woman.png');
+      
       color: white;
       border: 1px solid #ff4fc6;
   }
 
-  .service-card:hover .service-title,
-  .service-card:hover .statment {
+  .service-card .service-title,
+  .service-card .statment {
     color: #ff4fc6;
     text-shadow: 
       0 0 3px #ff4fc6,
@@ -382,7 +384,9 @@ a {
 }
 
 
-
+    .event-location {
+      color: #ffffff;
+    }
     .service-icon {
       width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 14px;
       background: #ccc;
@@ -1044,7 +1048,8 @@ environment and beyond
     <!-- Example event card -->
     <article class="service-card">
       <h3 class="service-title">Pink Friday</h3>
-      <p class="service-desc">Join Pink Friday PCOS Awareness Gathering!</p>, location, date, and highlight.</p>
+      <p class="service-desc">Join Pink Friday PCOS Awareness Gathering!</p> 
+      <p class="event-location"> ??? , 26.Sept, Ladies only event.</p>
       <!--<img src="/images/IMG-20251002-WA0000.jpg" alt="Event 1" style="width:50%; border-radius:9px; margin-top:6px;"> -->
     </article>
 
